@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-hover: 150ms;
+  --duration-ui: 300ms;
+  --duration-reveal: 600ms;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body { margin: 0; overscroll-behavior: none; }
+
+.js .reveal:not(.reveal-visible) {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--duration-reveal) var(--ease),
+    transform var(--duration-reveal) var(--ease);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-headline {
+  animation: hero-copy-in 700ms var(--ease) 60ms both;
+}
+
+.hero-underline {
+  position: relative;
+  display: inline;
+}
+
+.hero-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.08em;
+  height: 1px;
+  background: currentColor;
+  transform-origin: left;
+  animation: underline-in 600ms var(--ease) 520ms both;
+}
+
+.hero-portrait {
+  animation: portrait-in 700ms var(--ease) 180ms both;
+}
+
+.hero-actions {
+  animation: hero-copy-in 500ms var(--ease) 620ms both;
+}
+
+.status-pulse {
+  animation: status-pulse 3s ease-in-out infinite;
+}
+
+.interactive-card {
+  transition:
+    transform var(--duration-hover) var(--ease),
+    border-color var(--duration-hover) ease,
+    background-color var(--duration-hover) ease,
+    box-shadow var(--duration-hover) ease;
+}
+
+@media (hover: hover) {
+  .interactive-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+button,
+a,
+.interactive-card {
+  outline-offset: 3px;
+}
+
+@keyframes hero-copy-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes portrait-in {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes underline-in {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .js .reveal:not(.reveal-visible),
+  .reveal,
+  .reveal-visible,
+  .hero-headline,
+  .hero-portrait,
+  .hero-actions,
+  .hero-underline::after,
+  .status-pulse {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .hero-underline::after {
+    transform: none;
+  }
+
+  .interactive-card:hover {
+    transform: none;
+  }
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
